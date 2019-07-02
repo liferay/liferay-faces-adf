@@ -8,6 +8,6 @@
 		</after>
 	</ordering>
 	<factory>
-		<external-context-factory>com.liferay.faces.adf.internal.ExternalContextFactoryADFImpl</external-context-factory>
+		<external-context-factory>com.liferay.faces.adf.internal.context.ExternalContextFactoryADFImpl</external-context-factory>
 	</factory>
 </faces-config>
