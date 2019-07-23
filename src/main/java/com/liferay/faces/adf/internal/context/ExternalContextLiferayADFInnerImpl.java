@@ -15,6 +15,10 @@
  */
 package com.liferay.faces.adf.internal.context;
 
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextWrapper;
 
@@ -36,11 +40,14 @@ import javax.faces.context.ExternalContextWrapper;
  *
  * @author  Neil Griffin
  */
-public class ExternalContextADFImpl extends ExternalContextWrapper {
+public class ExternalContextLiferayADFInnerImpl extends ExternalContextWrapper {
+
+	private static final String ACTION_PHASE_LIFECYCLE = "p_p_lifecycle=1&";
+	private static final String VIEW_ID_RENDER_PARAMETER = "_facesViewIdRender=";
 
 	private ExternalContext wrappedExternalContext;
 
-	public ExternalContextADFImpl(ExternalContext externalContext) {
+	public ExternalContextLiferayADFInnerImpl(ExternalContext externalContext) {
 		this.wrappedExternalContext = externalContext;
 	}
 

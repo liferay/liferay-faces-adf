@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import com.liferay.faces.adf.internal.context.ExternalContextADFImpl;
+import com.liferay.faces.adf.internal.context.ExternalContextLiferayADFInnerImpl;
 
 import oracle.adf.share.logging.ADFLogger;
 
@@ -34,7 +34,7 @@ import oracle.adf.share.logging.ADFLogger;
 /**
  * The following should be placed in the WEB-INF/web.xml descriptor (instead of the normal Trinidad {@link
  * org.apache.myfaces.trinidad.webapp.ResourceServlet}) in order to activate the workaround described in {@link
- * ExternalContextADFImpl}:
+ * ExternalContextLiferayADFInnerImpl}:
  *
  * <pre>
     <servlet>

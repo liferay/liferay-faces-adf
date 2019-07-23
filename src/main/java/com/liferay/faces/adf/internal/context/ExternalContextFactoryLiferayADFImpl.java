@@ -23,16 +23,16 @@ import javax.faces.context.ExternalContextFactory;
 /**
  * @author  Neil Griffin
  */
-public class ExternalContextFactoryADFImpl extends ExternalContextFactory {
+public class ExternalContextFactoryLiferayADFImpl extends ExternalContextFactory {
 
 	private ExternalContextFactory wrappedFactory;
 
-	public ExternalContextFactoryADFImpl(ExternalContextFactory externalContextFactory) {
+	public ExternalContextFactoryLiferayADFImpl(ExternalContextFactory externalContextFactory) {
 		this.wrappedFactory = externalContextFactory;
 	}
 
 	@Override
 	public ExternalContext getExternalContext(Object context, Object request, Object response) throws FacesException {
-		return new ExternalContextADFImpl(wrappedFactory.getExternalContext(context, request, response));
+		return new ExternalContextLiferayADFInnerImpl(wrappedFactory.getExternalContext(context, request, response));
 	}
 }
