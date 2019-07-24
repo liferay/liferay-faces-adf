@@ -67,10 +67,16 @@ public class ExternalContextLiferayADFInnerImpl extends ExternalContextWrapper {
 		String value = super.getInitParameter(name);
 
 		if ((value == null) && "org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE".equals(name)) {
+
 			value = super.getInitParameter("com.liferay.faces.bridge.uploadedFileMaxSize");
 
 			if (value == null) {
-				value = super.getInitParameter("javax.faces.UPLOADED_FILE_MAX_SIZE");
+
+				value = super.getInitParameter("com.liferay.faces.util.uploadedFileMaxSize");
+
+				if (value == null) {
+					value = super.getInitParameter("javax.faces.UPLOADED_FILE_MAX_SIZE");
+				}
 			}
 		}
 
