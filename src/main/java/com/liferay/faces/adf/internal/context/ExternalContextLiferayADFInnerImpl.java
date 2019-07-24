@@ -15,10 +15,6 @@
  */
 package com.liferay.faces.adf.internal.context;
 
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextWrapper;
 
@@ -63,6 +59,22 @@ public class ExternalContextLiferayADFInnerImpl extends ExternalContextWrapper {
 		}
 
 		return super.encodeResourceURL(url);
+	}
+
+	@Override
+	public String getInitParameter(String name) {
+
+		String value = super.getInitParameter(name);
+
+		if ((value == null) && "org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE".equals(name)) {
+			value = super.getInitParameter("com.liferay.faces.bridge.uploadedFileMaxSize");
+
+			if (value == null) {
+				value = super.getInitParameter("javax.faces.UPLOADED_FILE_MAX_SIZE");
+			}
+		}
+
+		return value;
 	}
 
 	@Override
