@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.adf.internal.context;
 
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextWrapper;
 
@@ -38,6 +40,7 @@ import javax.faces.context.ExternalContextWrapper;
  */
 public class ExternalContextLiferayADFInnerImpl extends ExternalContextWrapper {
 
+	private static final String ADF_MAX_FILE_SIZE_KEY = "org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE";
 	private static final String ACTION_PHASE_LIFECYCLE = "p_p_lifecycle=1&";
 	private static final String VIEW_ID_RENDER_PARAMETER = "_facesViewIdRender=";
 
@@ -67,35 +70,48 @@ public class ExternalContextLiferayADFInnerImpl extends ExternalContextWrapper {
 		String value = super.getInitParameter(name);
 
 		// If ADF is validating file sizes, then...
-		if ("org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE".equals(name)) {
+		if (ADF_MAX_FILE_SIZE_KEY.equals(name)) {
 
-			String liferayFacesUploadedFileMaxSizeValue = super.getInitParameter(
-					"com.liferay.faces.util.uploadedFileMaxSize");
+			Map<String, Object> applicationMap = getApplicationMap();
+			String cachedADFMaxFileSize = (String) applicationMap.get(ADF_MAX_FILE_SIZE_KEY);
 
-			if (liferayFacesUploadedFileMaxSizeValue == null) {
+			if (cachedADFMaxFileSize != null) {
+				value = cachedADFMaxFileSize;
+			}
+			else {
 
-				liferayFacesUploadedFileMaxSizeValue = super.getInitParameter(
-						"com.liferay.faces.bridge.uploadedFileMaxSize");
+				String liferayFacesUploadedFileMaxSizeValue = super.getInitParameter(
+						"com.liferay.faces.util.uploadedFileMaxSize");
 
 				if (liferayFacesUploadedFileMaxSizeValue == null) {
-					liferayFacesUploadedFileMaxSizeValue = super.getInitParameter("javax.faces.UPLOADED_FILE_MAX_SIZE");
+
+					liferayFacesUploadedFileMaxSizeValue = super.getInitParameter(
+							"com.liferay.faces.bridge.uploadedFileMaxSize");
+
+					if (liferayFacesUploadedFileMaxSizeValue == null) {
+						liferayFacesUploadedFileMaxSizeValue = super.getInitParameter(
+								"javax.faces.UPLOADED_FILE_MAX_SIZE");
+					}
 				}
-			}
 
-			// If ADF's max file size is not set, use Liferay Faces' max file size.
-			if (value == null) {
-				value = liferayFacesUploadedFileMaxSizeValue;
-			}
-
-			// Otherwise if both ADF's and Liferay Faces' max file size limits are set, then use the smaller of the two.
-			else if (liferayFacesUploadedFileMaxSizeValue != null) {
-
-				long adfFileMaxSize = Long.parseLong(value);
-				long liferayFacesFileMaxSize = Long.parseLong(liferayFacesUploadedFileMaxSizeValue);
-
-				if (adfFileMaxSize > liferayFacesFileMaxSize) {
+				// If ADF's max file size is not set, use Liferay Faces' max file size.
+				if (value == null) {
 					value = liferayFacesUploadedFileMaxSizeValue;
 				}
+
+				// Otherwise if both ADF's and Liferay Faces' max file size limits are set, then use the smaller of
+				// the two.
+				else if (liferayFacesUploadedFileMaxSizeValue != null) {
+
+					long adfFileMaxSize = Long.parseLong(value);
+					long liferayFacesFileMaxSize = Long.parseLong(liferayFacesUploadedFileMaxSizeValue);
+
+					if (adfFileMaxSize > liferayFacesFileMaxSize) {
+						value = liferayFacesUploadedFileMaxSizeValue;
+					}
+				}
+
+				value = (String) applicationMap.putIfAbsent(ADF_MAX_FILE_SIZE_KEY, value);
 			}
 		}
 
