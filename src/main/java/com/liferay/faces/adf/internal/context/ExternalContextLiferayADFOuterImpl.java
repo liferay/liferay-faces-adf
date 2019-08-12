@@ -77,16 +77,18 @@ public class ExternalContextLiferayADFOuterImpl extends ExternalContextWrapper {
 					Object bridgeRequestScope = portletRequest.getAttribute(
 							"com.liferay.faces.bridge.scope.internal.BridgeRequestScope");
 
-					Class<?> bridgeRequestScopeClass = bridgeRequestScope.getClass();
+					if (bridgeRequestScope != null) {
+						Class<?> bridgeRequestScopeClass = bridgeRequestScope.getClass();
 
-					try {
-						Method setRedirectOccurredMethod = bridgeRequestScopeClass.getMethod("setRedirectOccurred",
-								new Class[] { boolean.class });
+						try {
+							Method setRedirectOccurredMethod = bridgeRequestScopeClass.getMethod("setRedirectOccurred",
+									new Class[] { boolean.class });
 
-						setRedirectOccurredMethod.invoke(bridgeRequestScope, Boolean.TRUE);
-					}
-					catch (Exception e) {
-						logger.log(Level.SEVERE, e.getMessage(), e);
+							setRedirectOccurredMethod.invoke(bridgeRequestScope, Boolean.TRUE);
+						}
+						catch (Exception e) {
+							logger.log(Level.SEVERE, e.getMessage(), e);
+						}
 					}
 				}
 			}
