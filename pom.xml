@@ -68,6 +68,7 @@
 
 	<modules>
 		<module>base</module>
+		<module>binding</module>
 	</modules>
 
 	<build>
