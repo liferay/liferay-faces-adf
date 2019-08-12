@@ -14,6 +14,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextWrapper;
 
+import oracle.adf.share.ADFContext;
+
 
 /**
  * The purpose of this class is to decorate the {@link #getExternalContext()} method in order for compatibility with
@@ -26,10 +28,12 @@ import javax.faces.context.FacesContextWrapper;
  */
 public class FacesContextLiferayADFImpl extends FacesContextWrapper {
 
+	private ADFContext adfContext;
 	private FacesContext wrappedFacesContext;
 
-	public FacesContextLiferayADFImpl(FacesContext facesContext) {
+	public FacesContextLiferayADFImpl(FacesContext facesContext, ADFContext adfContext) {
 		this.wrappedFacesContext = facesContext;
+		this.adfContext = adfContext;
 	}
 
 	@Override
@@ -40,5 +44,15 @@ public class FacesContextLiferayADFImpl extends FacesContextWrapper {
 	@Override
 	public FacesContext getWrapped() {
 		return wrappedFacesContext;
+	}
+
+	@Override
+	public void release() {
+
+		if (adfContext != null) {
+			ADFContext.resetADFContext(adfContext);
+		}
+
+		super.release();
 	}
 }

@@ -14,12 +14,32 @@ import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.lifecycle.Lifecycle;
+import javax.portlet.PortletRequest;
+
+import oracle.adf.share.ADFContext;
 
 
 /**
  * @author  Neil Griffin
  */
 public class FacesContextFactoryLiferayADFImpl extends FacesContextFactory {
+
+	private static Boolean initADFContext;
+
+	static {
+
+		boolean init = true;
+
+		try {
+			Class.forName("oracle.adfinternal.view.faces.config.rich.FacesDataBindingConfigurator");
+			init = false;
+		}
+		catch (ClassNotFoundException e) {
+			// Ignore
+		}
+
+		initADFContext = init;
+	}
 
 	private FacesContextFactory wrappedFacesContextFactory;
 
@@ -28,9 +48,18 @@ public class FacesContextFactoryLiferayADFImpl extends FacesContextFactory {
 	}
 
 	@Override
-	public FacesContext getFacesContext(Object request, Object response, Object context, Lifecycle lifecycle)
+	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
 		throws FacesException {
-		return new FacesContextLiferayADFImpl(wrappedFacesContextFactory.getFacesContext(request, response, context,
-					lifecycle));
+
+		ADFContext adfContext = null;
+
+		if (initADFContext && (request instanceof PortletRequest)) {
+			PortletRequest portletRequest = (PortletRequest) request;
+			adfContext = ADFContext.initADFContext(context, portletRequest.getPortletSession(false), portletRequest,
+					response);
+		}
+
+		return new FacesContextLiferayADFImpl(wrappedFacesContextFactory.getFacesContext(context, request, response,
+					lifecycle), adfContext);
 	}
 }
