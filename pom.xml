@@ -8,11 +8,12 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
+	<packaging>pom</packaging>
 	<groupId>com.liferay.faces</groupId>
-	<artifactId>com.liferay.faces.adf</artifactId>
+	<artifactId>com.liferay.faces.adf.parent</artifactId>
 	<version>12.2.0-SNAPSHOT</version>
-	<name>Liferay Faces ADF</name>
-	<description>Liferay Faces ADF</description>
+	<name>Liferay Faces ADF Parent</name>
+	<description>Liferay Faces ADF Parent</description>
 
 	<organization>
 		<name>Liferay, Inc</name>
@@ -64,6 +65,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<surefire.version>2.12</surefire.version>
 	</properties>
+
+	<modules>
+		<module>base</module>
+	</modules>
 
 	<build>
 		<pluginManagement>
@@ -267,58 +272,60 @@
 		</profile>
 	</profiles>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.liferay.faces</groupId>
-			<artifactId>com.liferay.faces.bridge.api</artifactId>
-			<version>4.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
-			<version>${faces.api.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
-			<version>2.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.fmwshare</groupId>
-			<artifactId>adf-richclient-api-11</artifactId>
-			<version>${adf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.fmwshare</groupId>
-			<artifactId>adf-richclient-impl-11</artifactId>
-			<version>${adf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.fmwshare</groupId>
-			<artifactId>adf-share-base</artifactId>
-			<version>${adf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.fmwshare</groupId>
-			<artifactId>trinidad-api</artifactId>
-			<version>${adf.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.fmwshare</groupId>
-			<artifactId>adf-share-ca</artifactId>
-			<version>${adf.version}</version>
-		</dependency>
-	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.liferay.faces</groupId>
+				<artifactId>com.liferay.faces.bridge.api</artifactId>
+				<version>4.1.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.faces</groupId>
+				<artifactId>javax.faces-api</artifactId>
+				<version>${faces.api.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.portlet</groupId>
+				<artifactId>portlet-api</artifactId>
+				<version>2.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.fmwshare</groupId>
+				<artifactId>adf-richclient-api-11</artifactId>
+				<version>${adf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.fmwshare</groupId>
+				<artifactId>adf-richclient-impl-11</artifactId>
+				<version>${adf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.fmwshare</groupId>
+				<artifactId>adf-share-base</artifactId>
+				<version>${adf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.fmwshare</groupId>
+				<artifactId>trinidad-api</artifactId>
+				<version>${adf.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.fmwshare</groupId>
+				<artifactId>adf-share-ca</artifactId>
+				<version>${adf.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<reporting>
 		<plugins>
