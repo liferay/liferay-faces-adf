@@ -1,1 +1,1 @@
-org.apache.myfaces.trinidad.Panel|oracle.adf.rich.GridLayout=com.liferay.faces.adf.internal.render.PanelGridLayoutRenderer
+org.apache.myfaces.trinidad.Panel|oracle.adf.rich.GridLayout=com.liferay.faces.adf.base.internal.render.PanelGridLayoutRenderer
