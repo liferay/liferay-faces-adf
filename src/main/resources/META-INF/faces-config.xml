@@ -11,6 +11,7 @@
 	<factory>
 		<external-context-factory>com.liferay.faces.adf.internal.context.ExternalContextFactoryLiferayADFImpl</external-context-factory>
 		<faces-context-factory>com.liferay.faces.adf.internal.context.FacesContextFactoryLiferayADFImpl</faces-context-factory>
+		<render-kit-factory>com.liferay.faces.adf.internal.render.RenderKitFactoryLiferayADFImpl</render-kit-factory>
 		<factory-extension>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.adf.internal.filter.BridgePortletRequestFactoryADFImpl</bridge:bridge-portlet-request-factory>
 		</factory-extension>
