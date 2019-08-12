@@ -311,6 +311,7 @@
 			<groupId>com.oracle.fmwshare</groupId>
 			<artifactId>trinidad-api</artifactId>
 			<version>${adf.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.fmwshare</groupId>
