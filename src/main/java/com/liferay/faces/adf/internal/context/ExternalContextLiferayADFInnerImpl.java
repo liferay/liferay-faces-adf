@@ -10,8 +10,14 @@
  */
 package com.liferay.faces.adf.internal.context;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextWrapper;
+import javax.portlet.PortletContext;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 
 
 /**
@@ -36,6 +42,7 @@ public class ExternalContextLiferayADFInnerImpl extends ExternalContextWrapper {
 	private static final String ACTION_PHASE_LIFECYCLE = "p_p_lifecycle=1&";
 	private static final String VIEW_ID_RENDER_PARAMETER = "_facesViewIdRender=";
 
+	private Map<String, String> requestHeaderMap;
 	private ExternalContext wrappedExternalContext;
 
 	public ExternalContextLiferayADFInnerImpl(ExternalContext externalContext) {
@@ -76,6 +83,32 @@ public class ExternalContextLiferayADFInnerImpl extends ExternalContextWrapper {
 		}
 
 		return value;
+	}
+
+	@Override
+	public Map<String, String> getRequestHeaderMap() {
+
+		if (requestHeaderMap == null) {
+
+			Map<String, String> requestParameterMap = getRequestParameterMap();
+
+			// If this is an ADF partial request (and not a standard JSF 2.x <f:ajax/> type of partial request) then
+			// remove the "Faces-Request" header so that the
+			// oracle.adfinternal.view.faces.context.PartialViewContextFactoryImpl.getPartialViewContext(FacesContext)
+			// method will know to return an ADF Faces PartialViewContextImpl rather than the Trinidad
+			// PartialViewContextImpl.
+			if ("true".equals(requestParameterMap.get("_xFacesResource")) &&
+					"true".equals(requestParameterMap.get("_xProcessAsRender")) &&
+					"true".equals(requestParameterMap.get("Adf-Rich-Message"))) {
+				requestHeaderMap = new HashMap<String, String>(super.getRequestHeaderMap());
+				requestHeaderMap.remove("Faces-Request");
+			}
+			else {
+				requestHeaderMap = super.getRequestHeaderMap();
+			}
+		}
+
+		return requestHeaderMap;
 	}
 
 	@Override
