@@ -67,17 +67,24 @@ public class ExternalContextLiferayADFBaseInnerImpl extends ExternalContextWrapp
 
 		String value = super.getInitParameter(name);
 
-		if ((value == null) && "org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE".equals(name)) {
+		if ("org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE".equals(name)) {
 
-			value = super.getInitParameter("com.liferay.faces.bridge.uploadedFileMaxSize");
+			String liferayFacesValue = super.getInitParameter("com.liferay.faces.util.uploadedFileMaxSize");
+
+			if (liferayFacesValue == null) {
+
+				liferayFacesValue = super.getInitParameter("com.liferay.faces.bridge.uploadedFileMaxSize");
+
+				if (liferayFacesValue == null) {
+					liferayFacesValue = super.getInitParameter("javax.faces.UPLOADED_FILE_MAX_SIZE");
+				}
+			}
 
 			if (value == null) {
-
-				value = super.getInitParameter("com.liferay.faces.util.uploadedFileMaxSize");
-
-				if (value == null) {
-					value = super.getInitParameter("javax.faces.UPLOADED_FILE_MAX_SIZE");
-				}
+				value = liferayFacesValue;
+			}
+			else if ((liferayFacesValue != null) && (Long.parseLong(value) > Long.parseLong(liferayFacesValue))) {
+				value = liferayFacesValue;
 			}
 		}
 
