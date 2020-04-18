@@ -32,6 +32,17 @@ Runtime](https://www.oracle.com/tools/downloads/application-development-framewor
 your local $HOME/.m2/repository according to the instructions found in section 5.3 of the document titled [Populating
 the Maven Repository Manager](https://docs.oracle.com/middleware/1212/core/MAVEN/config_maven.htm#MAVEN311).
 
+For example:
+
+- Install the plugin into $HOME/.m2/repository:
+
+	cd $HOME/oracle_common/plugins/maven/com/oracle/maven/oracle-maven-sync/12.2.1
+	mvn install:install-file -DpomFile=oracle-maven-sync-12.2.1.pom -Dfile=oracle-maven-sync-12.2.1.jar
+
+- Invoke the plugin so that the artifacts are installed into $HOME/.m2/repository:
+
+	mvn com.oracle.maven:oracle-maven-sync:push -DoracleHome=$HOME/Oracle/Middleware/Oracle_Home
+
 ## Building From Source
 
 Using [Maven](https://maven.apache.org/) 3.x:
