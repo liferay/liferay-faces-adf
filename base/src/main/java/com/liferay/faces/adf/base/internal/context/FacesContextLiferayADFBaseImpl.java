@@ -23,8 +23,8 @@ import oracle.adf.share.ADFContext;
  * chain-of-delegation would be to implement an {@link javax.faces.context.ExternalContextFactory} and to register it in
  * META-INF/faces-config.xml. Unfortunately the Trinidad FacesContextFactoryImpl.CacheRenderKit class contains a
  * constructor that places its own FacesContextFactoryImpl.OverrideDispatch class (which extends ExternalContext) as the
- * outer-most class instance in the chain-of-delegation, thus ignoring the <ordering> element in
- * META-INF/faces-config.xml for the <external-context-factory>.
+ * outer-most class instance in the chain-of-delegation, thus ignoring the &lt;ordering&gt; element in
+ * META-INF/faces-config.xml for the &lt;external-context-factory&gt;
  */
 public class FacesContextLiferayADFBaseImpl extends FacesContextWrapper {
 
