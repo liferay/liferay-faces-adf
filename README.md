@@ -36,14 +36,12 @@ For example:
 
 - Install the plugin into $HOME/.m2/repository:
 
-
-	cd $HOME/Oracle/Middleware/Oracle_Home/oracle_common/plugins/maven/com/oracle/maven/oracle-maven-sync/12.2.1
-	mvn install:install-file -DpomFile=oracle-maven-sync-12.2.1.pom -Dfile=oracle-maven-sync-12.2.1.jar
+        cd $HOME/Oracle/Middleware/Oracle_Home/oracle_common/plugins/maven/com/oracle/maven/oracle-maven-sync/12.2.1
+        mvn install:install-file -DpomFile=oracle-maven-sync-12.2.1.pom -Dfile=oracle-maven-sync-12.2.1.jar
 
 - Invoke the plugin so that the artifacts are installed into $HOME/.m2/repository:
 
-
-	mvn com.oracle.maven:oracle-maven-sync:push -DoracleHome=$HOME/Oracle/Middleware/Oracle_Home
+        mvn com.oracle.maven:oracle-maven-sync:push -DoracleHome=$HOME/Oracle/Middleware/Oracle_Home
 
 ## Building From Source
 
