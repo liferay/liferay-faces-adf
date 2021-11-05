@@ -1,7 +1,7 @@
 # Liferay Faces ADF
 
 This is a library that contains ADF compatibility features for use with
-[Liferay Faces](http://www.liferay.com/community/liferay-projects/liferay-faces/overview).
+[Liferay Faces](https://liferay.dev/-/faces).
 
 ## License
 
