@@ -14,14 +14,15 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
+import javax.portlet.faces.BridgeConfig;
+import javax.portlet.faces.filter.BridgePortletRequestFactory;
 
 
 /**
@@ -47,6 +48,12 @@ public class BridgePortletRequestFactoryADFBaseImpl extends BridgePortletRequest
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return wrappedBridgePortletRequestFactory.getEventRequest(eventRequest, eventResponse, portletConfig,
 				bridgeConfig);
+	}
+
+	@Override
+	public HeaderRequest getHeaderRequest(HeaderRequest headerRequest, HeaderResponse headerResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return wrappedBridgePortletRequestFactory.getHeaderRequest(headerRequest, headerResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
