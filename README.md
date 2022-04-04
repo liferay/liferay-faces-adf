@@ -5,7 +5,7 @@ This is a library that contains ADF compatibility features for use with
 
 ## License
 
-Liferay Enterprise Subscription License 
+[GNU Lesser General Public License (LGPL), Version 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)
 
 ## News
 
